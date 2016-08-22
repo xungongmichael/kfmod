@@ -19,9 +19,7 @@ import matplotlib.pylab as plt
 sys.path.append('/home/michael/Documents/Options/SRC/PyKalman')
 import utils._checkers as _checkers
 import utils.Utils as utils
-import utils.Kalman as kl
 import core.cython.kfpack as kf
-import core.score.score as sc
 import Visualization
 import importlib
 importlib.reload(Visualization)
@@ -93,15 +91,6 @@ class KalmanFilter:
 			self.p1 = np.asfortranarray(np.eye(n_r)*1E8)
 		else:
 			self.p1 = p1
-
-	# def __repr__(self):
-	# 	print ("State Space Model Summary")
-	# 	print ("Dimention of states:", self.n_r)
-	# 	print ("Dimention of observations", self.n_m)
-	# 	print ("Number of observations", self.n_T)
-	# 	print ("Likelihood:", self.likelihood)
-	# 	self.print_parameter('vC mZ diag_mH vD mT mQ a1 p1')
-	# 	return "More model description will be added in future!"
 
 	def set_constraint(self,
 		vC_cons = None, mZ_cons = None, mH_cons = None, 
@@ -225,15 +214,15 @@ class KalmanFilter:
 				self._mQ_L.dot(self._mQ_D).dot(self._mQ_L.T))
 
 	def _analytical_gradient_experimental(self):
-		self._disassembler()
-		par_to_est = self._starting_value 
+		# self._disassembler()
+		# par_to_est = self._starting_value 
 
-		self._score = sc.gradient(par_to_est,self._maskinfo,
-			self._parminfo,self._mY,
-			self.n_r,self.n_m,self.n_T,
-			1,1,0,0,
-			self._vC_ma,self._mZ_ma,self._mH_ma,self._vD_ma,
-			self._mT_ma,self._mQ_L_ma,self._mQ_D_ma)
+		# self._score = sc.gradient(par_to_est,self._maskinfo,
+		# 	self._parminfo,self._mY,
+		# 	self.n_r,self.n_m,self.n_T,
+		# 	1,1,0,0,
+		# 	self._vC_ma,self._mZ_ma,self._mH_ma,self._vD_ma,
+		# 	self._mT_ma,self._mQ_L_ma,self._mQ_D_ma)
 
 	def estimate(self,module='scipy',
 		factr=1E3, MaxIter=10000,delta=0.001,
