@@ -1,0 +1,1 @@
+icpc -O3 -lmkl_intel_lp64 -lmkl_intel_thread -lmkl_core -ldl -lpthread -liomp5 -lgtest_main test.cpp -std=c++11 -qopenmp -o test&&./test
